@@ -16,4 +16,5 @@
 | [Super_Tic_Tac_Toe_C++](Super_Tic_Tac_Toe_C++/) | Супер крестики-нолики (C++) |
 | [Super_Tic_Tac_Toe_JS](Super_Tic_Tac_Toe_JS/) | Супер крестики-нолики (JS) |
 | [ToDoList](ToDoList/) | Список дел (Angular) |
+| [DatePlanner](DatePlanner/) | Планер побачення — анкета зі свайпами (GitHub Pages) |
 | [to_reverse_forward_list](to_reverse_forward_list/) | Разворот forward list (C++) |

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1a0a2e">
+  <meta name="description" content="Планер побачення — анкета зі свайпами, картою та готовим повідомленням для Telegram">
+  <title>Вечір — планер побачення</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header" id="header">
+      <div class="header__brand">✨ Вечір</div>
+      <div class="header__progress">
+        <div class="header__progress-bar" id="progressBar"></div>
+      </div>
+      <div class="header__step" id="stepLabel">Крок 1 з 7</div>
+    </header>
+
+    <main class="main" id="main">
+      <!-- Step 0: Welcome -->
+      <section class="step step--active" data-step="0">
+        <div class="welcome">
+          <div class="welcome__icon">💫</div>
+          <h1 class="welcome__title">Планер побачення</h1>
+          <p class="welcome__text">Заповни анкету зі свайпами, обери місце на карті — і отримай готовий план, який можна одразу надіслати в Telegram.</p>
+          <ul class="welcome__features">
+            <li>🍕 Обери їжу та активності</li>
+            <li>📍 Місце зустрічі на карті</li>
+            <li>📋 Готове повідомлення для ЛС</li>
+          </ul>
+          <button class="btn btn--primary btn--large" data-action="next">Почати</button>
+        </div>
+      </section>
+
+      <!-- Step 1: Basic info -->
+      <section class="step" data-step="1">
+        <h2 class="step__title">Про тебе</h2>
+        <p class="step__subtitle">Базова інформація для персоналізації плану</p>
+        <form class="form" id="infoForm">
+          <label class="field">
+            <span class="field__label">Твоє ім'я</span>
+            <input class="field__input" type="text" name="userName" placeholder="Олексій" required autocomplete="given-name">
+          </label>
+          <label class="field">
+            <span class="field__label">Ім'я (кому надсилаєш план)</span>
+            <input class="field__input" type="text" name="partnerName" placeholder="Марія" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Instagram</span>
+            <input class="field__input" type="text" name="instagram" placeholder="@maria_art" inputmode="text">
+          </label>
+          <label class="field">
+            <span class="field__label">Telegram (кому написати)</span>
+            <input class="field__input" type="text" name="telegram" placeholder="@maria" inputmode="text">
+          </label>
+          <label class="field">
+            <span class="field__label">Місто</span>
+            <select class="field__input field__select" name="city" id="citySelect" required></select>
+          </label>
+          <button class="btn btn--primary btn--large" type="submit">Далі</button>
+        </form>
+      </section>
+
+      <!-- Step 2: Food swipes -->
+      <section class="step" data-step="2">
+        <h2 class="step__title">Що їсти?</h2>
+        <p class="step__subtitle">Свайп вправо — так, вліво — ні</p>
+        <div class="swipe" id="foodSwipe" data-category="food"></div>
+        <div class="swipe__actions">
+          <button class="swipe__btn swipe__btn--no" data-swipe="left" aria-label="Ні">✕</button>
+          <button class="swipe__btn swipe__btn--yes" data-swipe="right" aria-label="Так">♥</button>
+        </div>
+        <p class="swipe__counter" id="foodCounter"></p>
+      </section>
+
+      <!-- Step 3: Activity swipes -->
+      <section class="step" data-step="3">
+        <h2 class="step__title">Чим зайнятись?</h2>
+        <p class="step__subtitle">Обери, що подобається</p>
+        <div class="swipe" id="activitySwipe" data-category="activity"></div>
+        <div class="swipe__actions">
+          <button class="swipe__btn swipe__btn--no" data-swipe="left" aria-label="Ні">✕</button>
+          <button class="swipe__btn swipe__btn--yes" data-swipe="right" aria-label="Так">♥</button>
+        </div>
+        <p class="swipe__counter" id="activityCounter"></p>
+      </section>
+
+      <!-- Step 4: Vibe swipes -->
+      <section class="step" data-step="4">
+        <h2 class="step__title">Яка атмосфера?</h2>
+        <p class="step__subtitle">Як має відчуватись вечір</p>
+        <div class="swipe" id="vibeSwipe" data-category="vibe"></div>
+        <div class="swipe__actions">
+          <button class="swipe__btn swipe__btn--no" data-swipe="left" aria-label="Ні">✕</button>
+          <button class="swipe__btn swipe__btn--yes" data-swipe="right" aria-label="Так">♥</button>
+        </div>
+        <p class="swipe__counter" id="vibeCounter"></p>
+      </section>
+
+      <!-- Step 5: Date & time -->
+      <section class="step" data-step="5">
+        <h2 class="step__title">Коли зустрінемось?</h2>
+        <p class="step__subtitle">Обери дату та час побачення</p>
+        <form class="form" id="datetimeForm">
+          <label class="field">
+            <span class="field__label">Дата</span>
+            <input class="field__input" type="date" name="date" id="dateInput" required>
+          </label>
+          <label class="field">
+            <span class="field__label">Час</span>
+            <input class="field__input" type="time" name="time" id="timeInput" value="19:00" required>
+          </label>
+          <div class="chips" id="timeChips">
+            <button type="button" class="chip" data-time="17:00">17:00</button>
+            <button type="button" class="chip" data-time="18:00">18:00</button>
+            <button type="button" class="chip" data-time="19:00">19:00</button>
+            <button type="button" class="chip" data-time="20:00">20:00</button>
+          </div>
+          <button class="btn btn--primary btn--large" type="submit">Далі</button>
+        </form>
+      </section>
+
+      <!-- Step 6: Map & place -->
+      <section class="step" data-step="6">
+        <h2 class="step__title">Де зустрінемось?</h2>
+        <p class="step__subtitle">Обери місце на карті або зі списку</p>
+        <div class="places">
+          <div class="places__list" id="placesList"></div>
+          <div class="places__map" id="map"></div>
+        </div>
+        <button class="btn btn--primary btn--large" id="placeNextBtn" disabled data-action="next">Далі</button>
+      </section>
+
+      <!-- Step 7: Summary -->
+      <section class="step" data-step="7">
+        <div class="summary">
+          <div class="summary__icon">🎉</div>
+          <h2 class="step__title">План готовий!</h2>
+          <p class="step__subtitle" id="summarySubtitle"></p>
+
+          <div class="summary__card" id="summaryCard"></div>
+
+          <label class="field">
+            <span class="field__label">Повідомлення для Telegram</span>
+            <textarea class="field__textarea" id="messageText" rows="10" readonly></textarea>
+          </label>
+
+          <div class="summary__actions">
+            <button class="btn btn--primary btn--large" id="copyBtn">📋 Скопіювати план</button>
+            <button class="btn btn--secondary btn--large" id="telegramBtn">✈️ Написати в Telegram</button>
+            <button class="btn btn--ghost" id="restartBtn">Почати спочатку</button>
+          </div>
+          <p class="summary__hint" id="copyHint"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
