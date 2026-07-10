@@ -11,7 +11,7 @@ A collection of personal projects. Each project lives in its own folder.
 | [FindSubmatrixFullOfOnes](FindSubmatrixFullOfOnes/) | Find submatrix full of ones (JS) |
 | [ImageGroupByIsFlash](ImageGroupByIsFlash/) | Image grouping (C#) |
 | [MergeSort](MergeSort/) | Merge sort (C++) |
-| [PreparationCompatibL](PreparationCompatibL/) | Interview preparation (C++) |
+| [TimeSeriesContainer](TimeSeriesContainer/) | Polymorphic time-series container (C++) |
 | [ReverseLinkedList](ReverseLinkedList/) | Reverse linked list (JS) |
 | [Super_Tic_Tac_Toe_C++](Super_Tic_Tac_Toe_C++/) | Super tic-tac-toe (C++) |
 | [Super_Tic_Tac_Toe_JS](Super_Tic_Tac_Toe_JS/) | Super tic-tac-toe (JS) |

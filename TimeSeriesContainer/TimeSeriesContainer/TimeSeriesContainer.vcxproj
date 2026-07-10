@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{67715845-2a5d-49f3-ac5b-5cdef590c40d}</ProjectGuid>
-    <RootNamespace>PreparationCompatibL</RootNamespace>
+    <RootNamespace>TimeSeriesContainer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
